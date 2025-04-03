@@ -1,34 +1,25 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import DropdownFilter from "./components/DropdownFilter";
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [count, setCount] = useState(30);
 
 	return (
-		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
+		<main className="h-screen w-screen p-4">
+			<h1 className="mb-4">GitHub Repository Search</h1>
+			<div className="flex-row gap-2">
+				<DropdownFilter
+					defaultValue={count}
+					label="Items per page"
+					options={[
+						{ label: "5", value: 5 },
+						{ label: "10", value: 10 },
+						{ label: "30", value: 30 },
+						{ label: "100", value: 100 },
+					]}
+				/>
 			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-		</>
+		</main>
 	);
 }
 
