@@ -24,8 +24,9 @@ export default function DropdownFilter({
 			<Menu>
 				<MenuButton
 					className={clsx(
-						"flex w-fit cursor-pointer items-center gap-2 rounded border-1 bg-slate-200 p-2 dark:bg-slate-800",
-						"hover:bg-slate-300 focus:bg-slate-300 dark:focus:bg-slate-700 dark:hover:bg-slate-700",
+						"flex w-fit cursor-pointer items-center gap-2 bg-slate-200 p-2",
+						"rounded border-1 border-black/20 dark:border-white/20 dark:bg-slate-800",
+						"hover:bg-slate-300 data-[active]:bg-slate-300 dark:data-[active]:bg-slate-700 dark:hover:bg-slate-700",
 					)}
 				>
 					<span>{label}</span>
@@ -38,7 +39,8 @@ export default function DropdownFilter({
 				<MenuItems
 					anchor="bottom start"
 					className={clsx(
-						"w-fit origin-top-left rounded border-1 bg-slate-200 dark:bg-slate-800",
+						"w-[var(--button-width)] origin-top-left bg-slate-200 dark:border-white/20 dark:bg-slate-800",
+						"rounded border-1 border-black/20 dark:border-white/20 dark:bg-slate-800",
 					)}
 					transition
 				>
