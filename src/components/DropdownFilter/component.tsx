@@ -2,11 +2,11 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
+import type { DropdownOption } from "./types";
 
-type DropdownOption = { label: string; value: string | number };
-
-interface DropdownFilterProps extends HTMLAttributes<HTMLDivElement> {
-  defaultValue?: string | number;
+interface DropdownFilterProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue"> {
+  defaultValue?: DropdownOption;
   label: string;
   options: DropdownOption[];
 }
@@ -17,7 +17,7 @@ export default function DropdownFilter({
   options,
   ...props
 }: DropdownFilterProps) {
-  const [value, setValue] = useState(defaultValue);
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
 
   return (
     <div {...props}>
@@ -31,7 +31,7 @@ export default function DropdownFilter({
         >
           <span>{label}</span>
 
-          <span>{value}</span>
+          <span>{selectedOption?.label}</span>
 
           <ChevronDownIcon className="pointer-events-none size-4" />
         </MenuButton>
@@ -51,7 +51,7 @@ export default function DropdownFilter({
                 className={clsx(
                   "cursor-pointer p-2 hover:bg-slate-300 dark:hover:bg-slate-700",
                 )}
-                onClick={() => setValue(option.value)}
+                onClick={() => setSelectedOption(option)}
               >
                 {option.label}
               </p>
