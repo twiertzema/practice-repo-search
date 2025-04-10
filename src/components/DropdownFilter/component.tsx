@@ -2,22 +2,29 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
-import type { DropdownOption } from "./types";
+import { DROPDOWN_LABELS } from "../../constants";
 
 interface DropdownFilterProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue"> {
-  defaultValue?: DropdownOption;
+  extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
+  defaultValue?: string;
   label: string;
-  options: DropdownOption[];
+  onChange: (value: string) => void;
+  options: string[];
+}
+
+/** Sort of a stand-in for i18n. */
+function getLabel(value: string) {
+  return DROPDOWN_LABELS[value] ?? value;
 }
 
 export default function DropdownFilter({
   defaultValue,
   label,
   options,
+  onChange,
   ...props
 }: DropdownFilterProps) {
-  const [selectedOption, setSelectedOption] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <div {...props}>
@@ -31,7 +38,7 @@ export default function DropdownFilter({
         >
           <span>{label}</span>
 
-          <span>{selectedOption?.label}</span>
+          <span>{value ? getLabel(value) : ""}</span>
 
           <ChevronDownIcon className="pointer-events-none size-4" />
         </MenuButton>
@@ -45,15 +52,18 @@ export default function DropdownFilter({
           transition
         >
           {options.map((option) => (
-            <MenuItem key={option.value}>
+            <MenuItem key={option}>
               {/* biome-ignore lint/a11y/useKeyWithClickEvents: TODO: Support keyboard */}
               <p
                 className={clsx(
                   "cursor-pointer p-2 hover:bg-slate-300 dark:hover:bg-slate-700",
                 )}
-                onClick={() => setSelectedOption(option)}
+                onClick={() => {
+                  setValue(option);
+                  onChange(option);
+                }}
               >
-                {option.label}
+                {getLabel(option)}
               </p>
             </MenuItem>
           ))}
