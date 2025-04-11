@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DropdownFilter from "./components/DropdownFilter";
+import SearchInput from "./components/SearchInput";
 import {
   DROPDOWN_LABELS,
   ORDER_OPTIONS,
@@ -13,43 +14,49 @@ function getLabel(value: string) {
 }
 
 function App() {
+  const [search, setSearch] = useState("");
+
   const [perPage, setPerPage] = useState("30");
   const [sort, setSort] = useState("best-match");
   const [order, setOrder] = useState("asc");
 
   // TODO: Make query with params.
   useEffect(() => {
-    console.log(perPage, sort, order);
-  }, [perPage, sort, order]);
+    console.log(search, perPage, sort, order);
+  }, [search, perPage, sort, order]);
 
   return (
-    <main className="h-screen w-screen bg-slate-50 p-4 dark:bg-slate-900">
-      <h1 className="mb-4 font-bold text-3xl">GitHub Repository Search</h1>
+    <main className="m-8 flex h-fill w-fill flex-col items-center">
+      <div className="flex w-4xl flex-col gap-4">
+        <h1 className="font-bold text-3xl">GitHub Repository Search</h1>
 
-      <div className="flex gap-4">
-        <DropdownFilter
-          defaultValue={perPage}
-          getLabel={getLabel}
-          label="Items per page"
-          onChange={setPerPage}
-          options={PER_PAGE_OPTIONS}
-        />
+        <SearchInput defaultValue={search} onChange={setSearch} />
 
-        <DropdownFilter
-          defaultValue={sort}
-          getLabel={getLabel}
-          label="Sort by"
-          onChange={setSort}
-          options={SORT_BY_OPTIONS}
-        />
+        <div className="flex gap-4">
+          <DropdownFilter
+            defaultValue={perPage}
+            getLabel={getLabel}
+            label="Items per page"
+            onChange={setPerPage}
+            options={PER_PAGE_OPTIONS}
+          />
 
-        <DropdownFilter
-          defaultValue={order}
-          getLabel={getLabel}
-          label="Order"
-          onChange={setOrder}
-          options={ORDER_OPTIONS}
-        />
+          <DropdownFilter
+            defaultValue={sort}
+            getLabel={getLabel}
+            label="Sort by"
+            onChange={setSort}
+            options={SORT_BY_OPTIONS}
+          />
+
+          <DropdownFilter
+            defaultValue={order}
+            getLabel={getLabel}
+            label="Order"
+            onChange={setOrder}
+            options={ORDER_OPTIONS}
+          />
+        </div>
       </div>
     </main>
   );
