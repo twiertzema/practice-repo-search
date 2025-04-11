@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import DropdownFilter from "./components/DropdownFilter";
-import { ORDER_OPTIONS, PER_PAGE_OPTIONS, SORT_BY_OPTIONS } from "./constants";
+import {
+  DROPDOWN_LABELS,
+  ORDER_OPTIONS,
+  PER_PAGE_OPTIONS,
+  SORT_BY_OPTIONS,
+} from "./constants";
+
+/** Sort of a stand-in for i18n. */
+function getLabel(value: string) {
+  return DROPDOWN_LABELS[value] ?? value;
+}
 
 function App() {
   const [perPage, setPerPage] = useState("30");
@@ -19,6 +29,7 @@ function App() {
       <div className="flex gap-4">
         <DropdownFilter
           defaultValue={perPage}
+          getLabel={getLabel}
           label="Items per page"
           onChange={setPerPage}
           options={PER_PAGE_OPTIONS}
@@ -26,6 +37,7 @@ function App() {
 
         <DropdownFilter
           defaultValue={sort}
+          getLabel={getLabel}
           label="Sort by"
           onChange={setSort}
           options={SORT_BY_OPTIONS}
@@ -33,6 +45,7 @@ function App() {
 
         <DropdownFilter
           defaultValue={order}
+          getLabel={getLabel}
           label="Order"
           onChange={setOrder}
           options={ORDER_OPTIONS}

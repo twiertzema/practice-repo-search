@@ -2,23 +2,19 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 import { type HTMLAttributes, useState } from "react";
-import { DROPDOWN_LABELS } from "../../constants";
 
 interface DropdownFilterProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
   defaultValue?: string;
+  getLabel: (value: string) => string;
   label: string;
   onChange: (value: string) => void;
   options: string[];
 }
 
-/** Sort of a stand-in for i18n. */
-function getLabel(value: string) {
-  return DROPDOWN_LABELS[value] ?? value;
-}
-
 export default function DropdownFilter({
   defaultValue,
+  getLabel,
   label,
   options,
   onChange,
