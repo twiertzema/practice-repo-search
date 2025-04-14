@@ -1,19 +1,30 @@
 import { Input } from "@headlessui/react";
+import { useDebounce } from "@uidotdev/usehooks";
 import clsx from "clsx";
-import { type HTMLAttributes, useState } from "react";
+import { type HTMLAttributes, useEffect, useState } from "react";
 
-interface SearchInputProps
-  extends Omit<HTMLAttributes<HTMLInputElement>, "onChange"> {
+interface SearchInputProps extends HTMLAttributes<HTMLInputElement> {
+  /** @default 300 */
+  debounce?: number;
   defaultValue?: string;
-  onChange: (search: string) => void;
+  /** Called with the debounced value. */
+  onSearch: (search: string) => void;
 }
 
+/** Essentially a text input with a built-in debounce. */
 export default function SearchInput({
+  debounce = 300,
   defaultValue,
-  onChange,
+  onSearch,
   ...props
 }: SearchInputProps) {
-  const [value, setValue] = useState(defaultValue);
+  const [value, setValue] = useState(defaultValue ?? "");
+
+  const debouncedValue = useDebounce(value, debounce);
+
+  useEffect(() => {
+    onSearch(debouncedValue);
+  }, [debouncedValue, onSearch]);
 
   return (
     <Input
@@ -25,7 +36,6 @@ export default function SearchInput({
       )}
       onChange={(e) => {
         setValue(e.target.value);
-        onChange(e.target.value);
       }}
       value={value}
     />
