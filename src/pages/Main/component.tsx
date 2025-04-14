@@ -16,9 +16,9 @@ function getLabel(value: string) {
 export default function MainPage() {
   const [search, setSearch] = useState("");
 
-  const [perPage, setPerPage] = useState("30");
-  const [sort, setSort] = useState("best-match");
-  const [order, setOrder] = useState("asc");
+  const [perPage, setPerPage] = useState(PER_PAGE_OPTIONS[2]);
+  const [sort, setSort] = useState(SORT_BY_OPTIONS[0]);
+  const [order, setOrder] = useState(ORDER_OPTIONS[0]);
 
   useEffect(() => {
     const url = new URL("https://api.github.com/search/repositories");
