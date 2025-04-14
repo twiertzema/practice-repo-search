@@ -6,12 +6,20 @@ import { type HTMLAttributes, useState } from "react";
 interface DropdownFilterProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "defaultValue" | "onChange"> {
   defaultValue?: string;
+  /** Callback to get option labels. */
   getLabel: (value: string) => string;
+  /** Label of the dropdown itself. */
   label: string;
+  /** Called when value changes, receiving values directly (no labels). */
   onChange: (value: string) => void;
+  /**
+   * Options of the dropdown filter.
+   * These are values, not labels; labels are determined by calling `getLabel`.
+   */
   options: string[];
 }
 
+/** A custom-styled dropdown select input. */
 export default function DropdownFilter({
   defaultValue,
   getLabel,
