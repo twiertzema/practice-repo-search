@@ -25,7 +25,10 @@ export default function MainPage() {
   const [results, setResults] = useState<GitHubRepoResponseStub[]>([]);
 
   useEffect(() => {
-    if (search === "") setResults([]);
+    if (search === "") {
+      setResults([]);
+      return;
+    }
 
     const url = new URL("https://api.github.com/search/repositories");
     const params = new URLSearchParams();
