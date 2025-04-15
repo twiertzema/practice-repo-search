@@ -3,7 +3,7 @@ import { fn } from "@storybook/test";
 import SearchInput from "./component";
 
 const meta = {
-  title: "SearchInput",
+  title: "components/SearchInput",
   component: SearchInput,
 } satisfies Meta<typeof SearchInput>;
 

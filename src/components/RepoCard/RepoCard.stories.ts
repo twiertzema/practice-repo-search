@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import RepoCard from "./component";
 
 const meta = {
-  title: "RepoCard",
+  title: "components/RepoCard",
   component: RepoCard,
 } satisfies Meta<typeof RepoCard>;
 

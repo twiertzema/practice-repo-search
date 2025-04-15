@@ -4,7 +4,7 @@ import capitalize from "capitalize";
 import DropdownFilter from "./component";
 
 const meta = {
-  title: "DropdownFilter",
+  title: "components/DropdownFilter",
   component: DropdownFilter,
 } satisfies Meta<typeof DropdownFilter>;
 
