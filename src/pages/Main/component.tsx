@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DropdownFilter from "../../components/DropdownFilter";
+import RepoCard from "../../components/RepoCard";
 import SearchInput from "../../components/SearchInput";
 import {
   DROPDOWN_LABELS,
@@ -7,6 +8,7 @@ import {
   PER_PAGE_OPTIONS,
   SORT_BY_OPTIONS,
 } from "../../constants";
+import type { GitHubRepoResponseStub } from "../../types";
 
 /** Sort of a stand-in for i18n. */
 function getLabel(value: string) {
@@ -18,9 +20,13 @@ export default function MainPage() {
 
   const [perPage, setPerPage] = useState(PER_PAGE_OPTIONS[2]);
   const [sort, setSort] = useState(SORT_BY_OPTIONS[0]);
-  const [order, setOrder] = useState(ORDER_OPTIONS[0]);
+  const [order, setOrder] = useState(ORDER_OPTIONS[1]);
+
+  const [results, setResults] = useState<GitHubRepoResponseStub[]>([]);
 
   useEffect(() => {
+    if (search === "") setResults([]);
+
     const url = new URL("https://api.github.com/search/repositories");
     const params = new URLSearchParams();
     if (search !== "") params.set("q", search);
@@ -30,6 +36,18 @@ export default function MainPage() {
     url.search = params.toString();
 
     console.log(url.toString());
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Request error!", response.status, response.statusText);
+          setResults([]);
+          return;
+        }
+
+        return response.json();
+      })
+      .then((data) => setResults(data.items));
 
     // TODO: Make query. Raw fetch? React query?
   }, [search, perPage, sort, order]);
@@ -66,6 +84,17 @@ export default function MainPage() {
             options={ORDER_OPTIONS}
           />
         </div>
+
+        {results.map((item) => (
+          <RepoCard
+            description={item.description}
+            key={item.id}
+            name={item.full_name}
+            stars={item.stargazers_count}
+            updated={new Date(item.updated_at)}
+            url={item.html_url}
+          />
+        ))}
       </div>
     </main>
   );
