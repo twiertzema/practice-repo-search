@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import RepoCard from "../components/RepoCard";
+import RepoCard from "./component";
 
 const meta = {
   title: "RepoCard",

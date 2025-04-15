@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import capitalize from "capitalize";
-import DropdownFilter from "../components/DropdownFilter";
+import DropdownFilter from "./component";
 
 const meta = {
   title: "DropdownFilter",
