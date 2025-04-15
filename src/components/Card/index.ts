@@ -1,1 +1,1 @@
-export { default } from './component';
+export { default, type CardProps } from "./component";
