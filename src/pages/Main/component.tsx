@@ -51,8 +51,6 @@ export default function MainPage() {
         return response.json();
       })
       .then((data) => setResults(data.items));
-
-    // TODO: Make query. Raw fetch? React query?
   }, [search, perPage, sort, order]);
 
   return (

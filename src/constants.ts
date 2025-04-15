@@ -4,7 +4,7 @@ export const SORT_BY_OPTIONS = ["best-match", "stars", "updated"];
 
 export const ORDER_OPTIONS = ["asc", "desc"];
 
-// TODO: Extract labels to localization resources.
+// Stand-in for i18n localizatin resource.
 export const DROPDOWN_LABELS: { [key: string]: string } = {
   "5": "5",
   "10": "10",
