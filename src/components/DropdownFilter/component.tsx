@@ -57,7 +57,7 @@ export default function DropdownFilter({
         >
           {options.map((option) => (
             <MenuItem key={option}>
-              {/* biome-ignore lint/a11y/useKeyWithClickEvents: out of scopr of practice project*/}
+              {/* biome-ignore lint/a11y/useKeyWithClickEvents: out of scope of practice project */}
               <p
                 className={clsx(
                   "cursor-pointer p-2 hover:bg-slate-300 dark:hover:bg-slate-700",
